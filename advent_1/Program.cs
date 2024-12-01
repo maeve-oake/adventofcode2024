@@ -20,14 +20,10 @@ class Program
         left.Sort();
         right.Sort();
 
-        for (int i = 0; i < left.Count(); i++) // Part 1
+        for (int i = 0; i < left.Count(); i++)
         {
-            part1 += Math.Abs(left[i] - right[i]);
-        }
-
-        for (int i = 0; i < left.Count(); i++) // Part 2
-        {
-            part2 += left[i] * right.Where(x => x.Equals(left[i])).Count();
+            part1 += Math.Abs(left[i] - right[i]); // part 1 
+            part2 += left[i] * right.Where(x => x.Equals(left[i])).Count(); // part 2
         }
 
         Console.WriteLine("Part 1: " + part1);
