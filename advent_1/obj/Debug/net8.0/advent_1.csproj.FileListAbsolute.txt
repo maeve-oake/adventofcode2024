@@ -1,0 +1,14 @@
+/home/maeve/projects/adventofcode2024/advent_1/bin/Debug/net8.0/advent_1
+/home/maeve/projects/adventofcode2024/advent_1/bin/Debug/net8.0/advent_1.deps.json
+/home/maeve/projects/adventofcode2024/advent_1/bin/Debug/net8.0/advent_1.runtimeconfig.json
+/home/maeve/projects/adventofcode2024/advent_1/bin/Debug/net8.0/advent_1.dll
+/home/maeve/projects/adventofcode2024/advent_1/bin/Debug/net8.0/advent_1.pdb
+/home/maeve/projects/adventofcode2024/advent_1/obj/Debug/net8.0/advent_1.GeneratedMSBuildEditorConfig.editorconfig
+/home/maeve/projects/adventofcode2024/advent_1/obj/Debug/net8.0/advent_1.AssemblyInfoInputs.cache
+/home/maeve/projects/adventofcode2024/advent_1/obj/Debug/net8.0/advent_1.AssemblyInfo.cs
+/home/maeve/projects/adventofcode2024/advent_1/obj/Debug/net8.0/advent_1.csproj.CoreCompileInputs.cache
+/home/maeve/projects/adventofcode2024/advent_1/obj/Debug/net8.0/advent_1.dll
+/home/maeve/projects/adventofcode2024/advent_1/obj/Debug/net8.0/refint/advent_1.dll
+/home/maeve/projects/adventofcode2024/advent_1/obj/Debug/net8.0/advent_1.pdb
+/home/maeve/projects/adventofcode2024/advent_1/obj/Debug/net8.0/advent_1.genruntimeconfig.cache
+/home/maeve/projects/adventofcode2024/advent_1/obj/Debug/net8.0/ref/advent_1.dll
