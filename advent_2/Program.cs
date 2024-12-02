@@ -23,22 +23,22 @@ class Program
 
             if (safe) { p1SafeReports++; p2SafeReports++; }
 
-            else // if the report fails, calculate result with The Problem Dampener
+            else // if the report fails, process report with The Problem Dampener
             {
                 for (int j = 0; j < report.Count; j++)
                 {
-                    List<int> damReport = report.ToList();
-                    damReport.RemoveAt(j);
+                    List<int> dampReport = report.ToList();
+                    dampReport.RemoveAt(j);
 
                     bool p2isAscending = false;
                     bool p2safe = true;
 
-                    for (int i = 1; i < damReport.Count; i++)
+                    for (int i = 1; i < dampReport.Count; i++)
                     {
-                        p2isAscending = damReport[0] < damReport[1];
+                        p2isAscending = dampReport[0] < dampReport[1];
 
-                        if (damReport[i - 1] < damReport[i] != p2isAscending) { p2safe = false; break; }
-                        if (Math.Abs(damReport[i - 1] - damReport[i]) > 3 || Math.Abs(damReport[i - 1] - damReport[i]) < 1) { p2safe = false; break; }
+                        if (dampReport[i - 1] < dampReport[i] != p2isAscending) { p2safe = false; break; }
+                        if (Math.Abs(dampReport[i - 1] - dampReport[i]) > 3 || Math.Abs(dampReport[i - 1] - dampReport[i]) < 1) { p2safe = false; break; }
                     }
 
                     if (p2safe) { p2SafeReports++; break; }
