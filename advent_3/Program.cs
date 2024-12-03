@@ -7,7 +7,7 @@ class Program
     static void Main(string[] args)
     {
         // Part 1
-        int p1result = Regex.Matches(File.ReadAllText("input.txt"), @"(?<=mul\()[0-9]+,[0-9]+(?=\))").Cast<Match>().Select(p => p.Value).Select(x => x.Split(",").Select(x => int.Parse(x)).Aggregate(1, (acc, x) => acc * x)).Sum();
+        int p1result = Regex.Matches(File.ReadAllText("input.txt"), @"(?<=mul\()[0-9]+,[0-9]+(?=\))").Cast<Match>().Select(p => p.Value.Split(",").Select(int.Parse).Aggregate(1, (acc, x) => acc * x)).Sum();
         Console.WriteLine("Part 1: " + p1result);
 
         // Part 2
