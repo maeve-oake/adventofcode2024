@@ -13,9 +13,8 @@ class Program
 
         // Part 2
         int p2result = 0;
-        List<string> instructions = Regex.Matches(File.ReadAllText("input.txt"), @"(?<=mul\()[0-9]+,[0-9]+(?=\))|(don't\(\))|(do\(\))").Cast<Match>().Select(p => p.Value).ToList();
         bool doit = true;
-        instructions.ForEach(instr =>
+        Regex.Matches(File.ReadAllText("input.txt"), @"(?<=mul\()[0-9]+,[0-9]+(?=\))|(don't\(\))|(do\(\))").Cast<Match>().Select(p => p.Value).ToList().ForEach(instr =>
         {
             if (instr == "do()") { doit = true; }
             else if (instr == "don't()") { doit = false; }
