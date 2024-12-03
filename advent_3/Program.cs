@@ -8,8 +8,8 @@ class Program
     {
         // Part 1
         int p1result = 0;
-        Regex.Matches(File.ReadAllText("input.txt"), @"(?<=mul\()[0-9]+,[0-9]+(?=\))").Cast<Match>().Select(p => p.Value).ToList().Select(x => x.Split(",").ToList().Select(x => int.Parse(x)).ToList()).ToList().ForEach(mult => { p1result += mult[0] * mult[1]; });
-        Console.WriteLine(p1result);
+        Regex.Matches(File.ReadAllText("input.txt"), @"(?<=mul\()[0-9]+,[0-9]+(?=\))").Cast<Match>().Select(p => p.Value).Select(x => x.Split(",").Select(x => int.Parse(x)).ToList()).ToList().ForEach(mult => { p1result += mult[0] * mult[1]; });
+        Console.WriteLine("Part 1: " + p1result);
 
         // Part 2
         int p2result = 0;
@@ -22,7 +22,6 @@ class Program
             else if (doit) { p2result += int.Parse(instr.Split(",")[0]) * int.Parse(instr.Split(",")[1]); }
         });
 
-        Console.WriteLine("Part 1: " + p1result);
         Console.WriteLine("Part 2: " + p2result);
     }
 }
