@@ -10,9 +10,9 @@ class Program
         List<string> lines = input.Split("\n").ToList();
         int count = 0;
         string word = "XMAS";
+        string wordR = new string(word.Reverse().ToArray());
         int l = lines[0].Length;
         int l2 = lines[0].Length - 1;
-        string wordR = new string(word.Reverse().ToArray());
 
         // vertically
         count += Regex.Matches(input, $"(?=(X.{{{l}}}M.{{{l}}}A.{{{l}}}S|S.{{{l}}}A.{{{l}}}M.{{{l}}}X))", RegexOptions.Singleline).Count();
