@@ -10,21 +10,12 @@ class Program
         List<string> lines = input.Split("\n").ToList();
         int count = 0;
         string word = "XMAS";
-        int p2skip = lines[0].Length - 1;
+        int l = lines[0].Length;
+        int l2 = lines[0].Length - 1;
         string wordR = new string(word.Reverse().ToArray());
 
         // vertically
-
-        for (int x = 0; x < lines[0].Length; x++)
-        {
-            string line = "";
-            for (int y = 0; y < lines.Count; y++)
-            {
-                line += lines[y][x];
-
-            }
-            count += Regex.Matches(line, $"(?={word}|{wordR})").Count();
-        }
+        count += Regex.Matches(input, $"(?=(X.{{{l}}}M.{{{l}}}A.{{{l}}}S|S.{{{l}}}A.{{{l}}}M.{{{l}}}X))", RegexOptions.Singleline).Count();
 
         // horizontally
         count += Regex.Matches(input, $"(?={word}|{wordR})").Count();
@@ -54,6 +45,6 @@ class Program
         Console.WriteLine("Part 1: " + count);
 
         // part 2
-        Console.WriteLine("Part 2: " + Regex.Matches(input, $"(?=(M.S.{{{p2skip}}}A.{{{p2skip}}}M.S|M.M.{{{p2skip}}}A.{{{p2skip}}}S.S|S.S.{{{p2skip}}}A.{{{p2skip}}}M.M|S.M.{{{p2skip}}}A.{{{p2skip}}}S.M))", RegexOptions.Singleline).Count());
+        Console.WriteLine("Part 2: " + Regex.Matches(input, $"(?=(M.S.{{{l2}}}A.{{{l2}}}M.S|M.M.{{{l2}}}A.{{{l2}}}S.S|S.S.{{{l2}}}A.{{{l2}}}M.M|S.M.{{{l2}}}A.{{{l2}}}S.M))", RegexOptions.Singleline).Count());
     }
 }
