@@ -4,8 +4,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<List<char>> grid = File.ReadAllLines("p2test.txt").Select(x => x.ToList()).ToList();
+        List<List<char>> grid = File.ReadAllLines("input.txt").Select(x => x.ToList()).ToList();
         List<string> antinodes = [];
+        List<string> p2antinodes = [];
 
         for (int y = 0; y < grid.Count(); y++)
         {
@@ -30,6 +31,38 @@ class Program
                                 {
                                     antinodes.Add(yAnti + "," + xAnti);
                                 }
+
+                                // Part 2
+
+                                int gcd = GCD(Math.Abs(yDiff), Math.Abs(xDiff));
+                                int yNodesEvery = yDiff / gcd;
+                                int xNodesEvery = xDiff / gcd;
+
+                                int p2y = y;
+                                int p2x = x;
+
+                                while (true)
+                                {
+                                    if (p2y < grid.Count() && p2x < grid[y].Count() && p2y >= 0 && p2x >= 0)
+                                    { p2antinodes.Add(p2y + "," + p2x); }
+                                    else { break; }
+
+                                    p2y += yNodesEvery;
+                                    p2x += xNodesEvery;
+                                }
+
+                                p2y = y;
+                                p2x = x;
+
+                                while (true)
+                                {
+                                    if (p2y < grid.Count() && p2x < grid[y].Count() && p2y >= 0 && p2x >= 0)
+                                    { p2antinodes.Add(p2y + "," + p2x); }
+                                    else { break; }
+
+                                    p2y -= yNodesEvery;
+                                    p2x -= xNodesEvery;
+                                }
                             }
                         }
                     }
@@ -38,5 +71,19 @@ class Program
         }
 
         Console.WriteLine("Part 1: " + antinodes.Distinct().Count());
+        Console.WriteLine("Part 2: " + p2antinodes.Distinct().Count());
+    }
+
+    static int GCD(int a, int b)
+    {
+        while (a != 0 && b != 0)
+        {
+            if (a > b)
+                a %= b;
+            else
+                b %= a;
+        }
+
+        return a | b;
     }
 }
