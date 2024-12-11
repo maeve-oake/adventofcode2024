@@ -73,7 +73,7 @@ class Program
 
             visited.Add(y + "," + x);
 
-            if (visited.Distinct().Count() < visited.Count() / 2) { return new List<string>(); } // just return nothing if it loops
+            if (visited.Distinct().Count() < visited.Count() / 8) { return new List<string>(); } // just return nothing if it loops
         }
 
         return visited;
