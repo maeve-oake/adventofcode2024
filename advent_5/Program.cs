@@ -1,6 +1,4 @@
-﻿using System.Transactions;
-
-namespace advent_5;
+﻿namespace advent_5;
 
 class Program
 {
