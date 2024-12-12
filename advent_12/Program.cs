@@ -24,7 +24,6 @@ class Program
 
         regions.ForEach(region =>
         {
-
             int sides = 0;
             int border = region.Select(p => Convert.ToString(p.Item4, 2).PadLeft(4, '0').Where(x => x == '1').Count()).Sum();
 
@@ -77,7 +76,7 @@ class Program
                 ).Sum();
 
             sides = top + bottom + left + right;
-            Console.WriteLine("plant: " + region[0].Item1 + " area: " + region.Count() + " sides: " + sides);
+            //Console.WriteLine("plant: " + region[0].Item1 + " area: " + region.Count() + " sides: " + sides);
             part1 += border * region.Count();
             part2 += sides * region.Count();
         });
