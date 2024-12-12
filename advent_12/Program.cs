@@ -15,7 +15,7 @@ class Program
             for (int x = 0; x < garden[y].Count; x++)
             {
                 char current = garden[y][x];
-                if (regions.Where(i => i.Where(j => j.Item2 == y && j.Item3 == x).Count() != 0).Count() == 0)
+                if (!regions.Any(i => i.Any(j => j.Item2 == y && j.Item3 == x)))
                 {
                     regions.Add(around(current, y, x, []).Distinct().ToList()); // i tried my best but since i did depth-first, duplicates can occur
                 }
@@ -24,15 +24,9 @@ class Program
 
         regions.ForEach(region =>
         {
-            int border = 0;
+
             int sides = 0;
-            region.ForEach(plant =>
-            {
-                border += Convert.ToString(plant.Item4, 2)
-                    .PadLeft(4, '0')
-                    .Where(x => x == '1')
-                    .Count();
-            });
+            int border = region.Select(p => Convert.ToString(p.Item4, 2).PadLeft(4, '0').Where(x => x == '1').Count()).Sum();
 
             // groupby y then check for top edge. then group by x increasing by 1 
             int top = region.GroupBy(plant => plant.Item2)
@@ -102,7 +96,7 @@ class Program
         {
             Tuple<char, int, int> test = new(plant, y - 1, x);
 
-            if (region.Where(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3).Count() == 0)
+            if (region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
             { testfor.Add(test); }
 
             sides -= 8;
@@ -112,7 +106,7 @@ class Program
         {
             Tuple<char, int, int> test = new(plant, y + 1, x);
 
-            if (region.Where(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3).Count() == 0)
+            if (region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
             { testfor.Add(test); }
 
             sides -= 4;
@@ -122,7 +116,7 @@ class Program
         {
             Tuple<char, int, int> test = new(plant, y, x - 1);
 
-            if (region.Where(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3).Count() == 0)
+            if (region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
             { testfor.Add(test); }
 
             sides -= 2;
@@ -132,7 +126,7 @@ class Program
         {
             Tuple<char, int, int> test = new(plant, y, x + 1);
 
-            if (region.Where(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3).Count() == 0)
+            if (region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
             { testfor.Add(test); }
 
             sides--;
