@@ -8,7 +8,7 @@ class Program
         int part1 = 0;
         int part2 = 0;
         List<List<Tuple<char, int, int, int>>> regions = [];
-        //             <char, y,   x,   neighboring>
+        //             <char, y,   x,   neighbouring>
 
         for (int y = 0; y < garden.Count; y++)
         {
