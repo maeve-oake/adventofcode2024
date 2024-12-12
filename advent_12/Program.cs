@@ -96,7 +96,7 @@ class Program
         {
             Tuple<char, int, int> test = new(plant, y - 1, x);
 
-            if (region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
+            if (!region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
             { testfor.Add(test); }
 
             sides -= 8;
@@ -106,7 +106,7 @@ class Program
         {
             Tuple<char, int, int> test = new(plant, y + 1, x);
 
-            if (region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
+            if (!region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
             { testfor.Add(test); }
 
             sides -= 4;
@@ -116,7 +116,7 @@ class Program
         {
             Tuple<char, int, int> test = new(plant, y, x - 1);
 
-            if (region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
+            if (!region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
             { testfor.Add(test); }
 
             sides -= 2;
@@ -126,7 +126,7 @@ class Program
         {
             Tuple<char, int, int> test = new(plant, y, x + 1);
 
-            if (region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
+            if (!region.Any(x => x.Item1 == test.Item1 && x.Item2 == test.Item2 && x.Item3 == test.Item3))
             { testfor.Add(test); }
 
             sides--;
