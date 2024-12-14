@@ -45,12 +45,14 @@ class Program
                         { acc.GetRowSpan(y)[x] = new Argb32(0xFF, 0xFF, 0xFF); }
                         else { acc.GetRowSpan(y)[x] = new Argb32(0x00, 0x00, 0x00); }
                     }
-
                 }
-
             });
 
             image.Save("frames/" + i + ".png", Encoder);
+
+            // basically run this until you have a billion images, then sort by size
+            // the smallest image should be the one with the least entropy, which compresses the best, and therefore has the tree!
+            // thanks to anya for being this smart :3
 
             robots.ForEach(robot =>
             {
