@@ -2,53 +2,94 @@
 
 class Program
 {
-    static void Main(string[] args)
+    public static Dictionary<Tuple<long, long>, long> aa = [];
+
+    static long next(long stone, long step, long max)
     {
-        List<long> lstones = File.ReadAllText("input.txt").Split(" ").Select(long.Parse).ToList();
-        List<long> preprocess = File.ReadAllText("preprocess/input_25_distinct").Split(" ").Select(long.Parse).ToList();
-        // int diff = 0;
-        // int seconddiff = 0;
-        // int thirddiff = 0;
+        if (step == max) { return 1; }
 
-        foreach (long stone in preprocess)
+        Tuple<long, long> key = new(stone, step);
+
+        long value;
+        if (aa.TryGetValue(key, out value)) { return value; }
+
+        if (stone == 0)
         {
-            List<long> stones = [stone];
-            for (long b = 0; b < 25; b++)
-            {
-                for (int s = 0; s < stones.Count; s++)
-                {
-                    if (stones[s] == 0) { stones[s] = 1; }
-
-                    else if (stones[s].ToString().Length % 2 == 0)
-                    {
-                        string first = stones[s].ToString().Substring(0, stones[s].ToString().Length / 2);
-                        string second = stones[s].ToString().Substring(stones[s].ToString().Length / 2);
-
-                        stones[s] = long.Parse(first);
-                        s++;
-                        stones.Insert(s, long.Parse(second));
-                    }
-
-                    else { stones[s] *= 2024; }
-                }
-
-                TextWriter dtw = new StreamWriter($"preprocess/{stone}_25");
-                foreach (long hstone in stones) { dtw.Write(hstone.ToString() + " "); }
-                dtw.Flush();
-                dtw.Close();
-
-                // stones.ForEach(x => Console.Write(x + " "));
-                // Console.WriteLine();
-                // Console.WriteLine("c :" + stones.Count);
-                // Console.WriteLine("d :" + (stones.Count - diff));
-                // Console.WriteLine("d2:" + ((stones.Count - diff) - seconddiff));
-                // Console.WriteLine("d3:" + (((stones.Count - diff) - seconddiff) - thirddiff) + "\n");
-                // thirddiff = (stones.Count - diff) - seconddiff;
-                // seconddiff = stones.Count - diff;
-                // diff = stones.Count;
-                // Console.WriteLine();
-            }
+            value = next(1, step + 1, max);
+            aa.Add(key, value);
+            return value;
         }
+
+        if (stone.ToString().Length % 2 == 0)
+        {
+            long first = long.Parse(stone.ToString().Substring(0, stone.ToString().Length / 2));
+            long second = long.Parse(stone.ToString().Substring(stone.ToString().Length / 2));
+
+            long a = next(first, step + 1, max);
+            long b = next(second, step + 1, max);
+            aa.Add(key, a + b);
+            return a + b;
+        }
+
+        value = next(stone * 2024, step + 1, max);
+        aa.Add(key, value);
+
+        return value;
+    }
+
+    static public void Main(string[] args)
+    {
+        Console.WriteLine(File.ReadAllText("input.txt").Split(" ").Select(long.Parse).Select(x => next(x, 0, 75)).Sum());
+
+        // the below is archived for funny moments. im stupid.
+
+
+        // List<long> lstones = File.ReadAllText("input.txt").Split(" ").Select(long.Parse).ToList();
+        // List<string> preprocess = File.ReadAllText("preprocess/input_25_distinct").Split(" ").ToList();
+
+        // Parallel.ForEach(preprocess, read =>
+        // {
+        //     TextWriter dtw = new StreamWriter($"preprocess/{read}_50");
+
+        //     foreach (string stone in File.ReadAllText("preprocess/" + read + "_25").Trim().Split(" "))
+        //     {
+        //         dtw.Write(File.ReadAllText("preprocess/" + stone + "_25").Trim() + " ");
+        //     }
+
+        //     dtw.Flush();
+        //     dtw.Close();
+        //     Console.WriteLine("i love you anya");
+        // });
+
+
+        // foreach (long stone in preprocess)
+        // {
+        //     List<long> stones = [stone];
+        //     for (long b = 0; b < 25; b++)
+        //     {
+        //         for (int s = 0; s < stones.Count; s++)
+        //         {
+        //             if (stones[s] == 0) { stones[s] = 1; }
+
+        //             else if (stones[s].ToString().Length % 2 == 0)
+        //             {
+        //                 string first = stones[s].ToString().Substring(0, stones[s].ToString().Length / 2);
+        //                 string second = stones[s].ToString().Substring(stones[s].ToString().Length / 2);
+
+        //                 stones[s] = long.Parse(first);
+        //                 s++;
+        //                 stones.Insert(s, long.Parse(second));
+        //             }
+
+        //             else { stones[s] *= 2024; }
+        //         }
+
+        //         TextWriter dtw = new StreamWriter($"preprocess/{stone}_25");
+        //         foreach (long hstone in stones) { dtw.Write(" " + hstone.ToString()); }
+        //         dtw.Flush();
+        //         dtw.Close();
+        //     }
+        // }
 
 
         // my plan here was to "preprocess" numbers. calculate what 0 becomes after 25 blinks, then 1 and just replace
