@@ -32,13 +32,20 @@ class Program
         int turns = 0;
         int y = map.IndexOf(map.Find(x => x.Contains('^')));
         int x = map[y].IndexOf('^');
-        visited[new Tuple<int, int>(y, x)] = 1;
 
         bool loop = true;
 
         while (loop)
         {
-            switch (turns % 4 + 1)
+            Tuple<int, int> cspace = new(y, x);
+
+            int value;
+            visited.TryGetValue(cspace, out value);
+            if (value > 12) { return null; }
+
+            visited[cspace] = value + 1;
+
+            switch ((turns % 4) + 1)
             {
                 case 1: // up
                     if (y == 0) { loop = false; break; }
@@ -60,17 +67,6 @@ class Program
                     if (map[y][x - 1] == '#' || (extra is not null && (y == extra.Item1) && (x - 1) == extra.Item2)) { turns++; y--; }
                     else { x--; }
                     break;
-            }
-
-            if (loop)
-            {
-                Tuple<int, int> cspace = new(y, x);
-
-                int value;
-                visited.TryGetValue(cspace, out value);
-                if (value > 10) { return null; }
-
-                visited[cspace] = value + 1;
             }
         }
 
