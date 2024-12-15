@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace advent_15;
+﻿namespace advent_15;
 
 // i love my girlfriend (anya <3)
 
