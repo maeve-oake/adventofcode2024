@@ -33,28 +33,26 @@ class Program
         Console.WriteLine("Part 1: " + warehouse.Select((line, y) => line.Select((spot, x) => spot == 'O' ? y * 100 + x : 0).Sum()).Sum());
     }
 
-    static Tuple<int, int> ConvertMove(char move)
+    static bool LeRobot(char move, int y, int x)
     {
+        int next_y = y;
+        int next_x = x;
+
         switch (move)
         {
             case '^':
-                return new Tuple<int, int>(-1, 0);
+                next_y--;
+                break;
             case '>':
-                return new Tuple<int, int>(0, 1);
+                next_x++;
+                break;
             case 'v':
-                return new Tuple<int, int>(1, 0);
+                next_y++;
+                break;
             case '<':
-                return new Tuple<int, int>(0, -1);
+                next_x--;
+                break;
         }
-
-        return null;
-    }
-
-    static bool LeRobot(char move, int y, int x)
-    {
-        Tuple<int, int> diff = ConvertMove(move);
-        int next_y = y + diff.Item1;
-        int next_x = x + diff.Item2;
 
         char next = warehouse[next_y][next_x];
 
