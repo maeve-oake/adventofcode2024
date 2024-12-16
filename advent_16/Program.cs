@@ -2,7 +2,7 @@
 
 class Program
 {
-    static List<List<char>> input = File.ReadAllLines("input.txt").Select(l => l.ToCharArray().ToList()).ToList();
+    static List<List<char>> input = File.ReadAllLines("test.txt").Select(l => l.ToCharArray().ToList()).ToList();
     static Dictionary<Tuple<int, int>, int> visited = [];
 
     static int part1 = int.MaxValue;
@@ -121,7 +121,7 @@ class Program
 
         if (input[y - 1][x] == 'E' || input[y + 1][x] == 'E' || input[y][x - 1] == 'E' || input[y][x + 1] == 'E')
         {
-            Console.WriteLine("FOUND! " + score + 1);
+            Console.WriteLine("FOUND! " + (score + 1));
             if (score + 1 < part1) { part1 = score + 1; }
             return score + 1;
         }
