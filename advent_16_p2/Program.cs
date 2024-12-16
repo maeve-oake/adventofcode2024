@@ -55,6 +55,7 @@ class Program
         {
             if (score + 1 > bestScore)
             {
+                route.RemoveAt(route.Count - 1);
                 return;
             }
             if (score + 1 < bestScore)
@@ -63,7 +64,8 @@ class Program
                 bestScore = score + 1;
                 part2 = [];
             }
-            part2.Add(route);
+            part2.Add(route.ToList());
+            route.RemoveAt(route.Count - 1);
             return;
         }
 
@@ -79,7 +81,7 @@ class Program
             key = getCacheKey(y - 1, x, '^', width);
             if (!visited.TryGetValue(key, out value) || value >= newscore)
             {
-                recurse(y - 1, x, '^', newscore, new(route));
+                recurse(y - 1, x, '^', newscore, route);
             }
         }
 
@@ -90,7 +92,7 @@ class Program
             key = getCacheKey(y + 1, x, 'v', width);
             if (!visited.TryGetValue(key, out value) || value >= newscore)
             {
-                recurse(y + 1, x, 'v', newscore, new(route));
+                recurse(y + 1, x, 'v', newscore, route);
             }
         }
 
@@ -101,7 +103,7 @@ class Program
             key = getCacheKey(y, x + 1, '>', width);
             if (!visited.TryGetValue(key, out value) || value >= newscore)
             {
-                recurse(y, x + 1, '>', newscore, new(route));
+                recurse(y, x + 1, '>', newscore, route);
             }
         }
 
@@ -112,10 +114,11 @@ class Program
             key = getCacheKey(y, x - 1, '<', width);
             if (!visited.TryGetValue(key, out value) || value >= newscore)
             {
-                recurse(y, x - 1, '<', newscore, new(route));
+                recurse(y, x - 1, '<', newscore, route);
             }
         }
 
+        route.RemoveAt(route.Count - 1);
         return;
     }
 }
