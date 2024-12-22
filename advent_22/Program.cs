@@ -45,32 +45,26 @@ class Program
             }
         });
 
-        Dictionary<string, int> sorts = [];
+        List<string> sorts = [];
         diffs.ForEach(x =>
         {
             x.ToList().ForEach(l =>
             {
-                int v;
-                if (sorts.TryGetValue(l.Key, out v) || v < l.Value)
-                {
-                    sorts[l.Key] = l.Value;
-                }
+                sorts.Add(l.Key);
             });
         });
 
-        sorts.OrderByDescending(key => key.Value).ToList().ForEach(x =>
+        sorts.Distinct().ToList().ForEach(x =>
         {
             int i = 0;
             diffs.ForEach(buyer =>
             {
                 int h;
-                if (buyer.TryGetValue(x.Key, out h)) { i += h; }
+                if (buyer.TryGetValue(x, out h)) { i += h; }
             });
 
             part2 = i > part2 ? i : part2;
         });
-
-        // keep going down while biggestbanan * buyers is more than the current highest total
 
         Console.WriteLine("Part 2: " + part2);
     }
