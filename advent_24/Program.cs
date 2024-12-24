@@ -1,5 +1,6 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 
 namespace advent_24;
 
@@ -9,12 +10,11 @@ class Program
     {
         var inp = File.ReadAllText("input.txt").Split("\n\n");
         List<Gate> gates = [];
-        Dictionary<string, int> wires = [];
+        Dictionary<string, bool> wires = [];
 
         foreach (string guh in inp[1].Split("\n"))
         {
             var huh = guh.Split(" ");
-
             gates.Add(new Gate()
             {
                 gate = huh[1],
@@ -22,32 +22,27 @@ class Program
                 wireB = huh[2],
                 wire_out = huh[4]
             });
-
-            wires[huh[0]] = -1;
-            wires[huh[2]] = -1;
-            wires[huh[4]] = -1;
         }
 
         foreach (string nah in inp[0].Split("\n"))
         {
             var bruh = nah.Split(": ");
-
-            wires[bruh[0]] = bruh[1] == "1" ? 1 : 0;
+            wires[bruh[0]] = bruh[1] == "1" ? true : false;
         }
 
         while (gates.Count > 0)
         {
-            gates.Where(gate => wires[gate.wireA] != -1 && wires[gate.wireB] != -1).ToList().ForEach(gate =>
+            gates.Where(gate => wires.TryGetValue(gate.wireA, out _) && wires.TryGetValue(gate.wireB, out _)).ToList().ForEach(gate =>
             {
-                if (gate.gate == "OR") { wires[gate.wire_out] = (wires[gate.wireA] == 1) || (wires[gate.wireB] == 1) ? 1 : 0; }
-                else if (gate.gate == "AND") { wires[gate.wire_out] = (wires[gate.wireA] == 1) && (wires[gate.wireB] == 1) ? 1 : 0; }
-                else if (gate.gate == "XOR") { wires[gate.wire_out] = (wires[gate.wireA] == 1) ^ (wires[gate.wireB] == 1) ? 1 : 0; }
+                if (gate.gate == "OR") { wires[gate.wire_out] = wires[gate.wireA] || wires[gate.wireB]; }
+                else if (gate.gate == "AND") { wires[gate.wire_out] = wires[gate.wireA] && wires[gate.wireB]; }
+                else if (gate.gate == "XOR") { wires[gate.wire_out] = wires[gate.wireA] ^ wires[gate.wireB]; }
 
                 gates.Remove(gate);
             });
         }
 
-        long part1 = Convert.ToInt64(string.Join(string.Empty, wires.Where(w => w.Key.StartsWith('z')).OrderByDescending(w => w.Key[1..]).Select(w => w.Value.ToString())), 2);
+        long part1 = Convert.ToInt64(string.Join(string.Empty, wires.Where(w => w.Key.StartsWith('z')).OrderByDescending(w => w.Key[1..]).Select(w => w.Value ? "1" : "0")), 2);
 
         Console.WriteLine("Part 1: " + part1);
     }
