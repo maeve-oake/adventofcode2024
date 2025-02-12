@@ -1,8 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-
-namespace advent_24;
+﻿namespace advent_24;
 
 class Program
 {
